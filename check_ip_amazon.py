@@ -45,7 +45,8 @@ for o, a in opts:
 #Si no se define una ip para comprobar salimos
 if not ip_check:
 	sys.exit()
-
+	
+#Comprobar si ya existe el fichero en local
 file_ip_range = Path("ip-ranges.json")
 if not file_ip_range.is_file():
     downloadJSONdata_ip_amazon()
@@ -54,7 +55,9 @@ data = json.load(open('ip-ranges.json'))
 for d in data["prefixes"]:
 	net = ip_network(d["ip_prefix"])
 	if ip_address(ip_check) in net:
-		print ("encontrado")
+		print ("Encontrado")
 		print ("La ip", ip_check , " pertenece al rango" , d["ip_prefix"])
+		print ("service:",d["service"])
+		print ("region:", d["region"])
 
 
